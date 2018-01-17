@@ -27,6 +27,18 @@ class Node
       end 
     end 
   end 
+  
+  def find(num)
+    return true if self.value == num
+    if self.value > num
+      return false if self.left == nil 
+      self.left.find(num)
+    else 
+      return false if self.right == nil 
+      self.right.find(num)
+    end      
+  end  
+
 end 
 
 
