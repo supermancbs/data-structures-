@@ -24,10 +24,20 @@ class Node
           child.visited = true 
           queue << child 
         end 
-      end 
-    end 
-    
-    return false 
-  end 
+       end 
+     end   
+     return false 
+   end 
+   
+   def dfs(target, current = self)
+     return true if current.data == target
+     current.visited = true 
+     current.children.each do |child|
+       if !child.visited
+         return dfs(target, child)
+       end  
+     end 
+     return false
+   end 
 end 
 
