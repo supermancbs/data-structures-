@@ -1,4 +1,4 @@
-
+require 'pry'
 class Node
   attr_accessor :data, :children, :visited
 
@@ -56,13 +56,25 @@ class Node
       return false
    end
 
-   def cycle?(current = self, current_stack = {})
+   def cycle?
+     begin
+       check_cycle
+       rescue NotInvertibleError
+         return true
+       end
+      return false
+   end
+
+   def check_cycle(current = self, current_stack = {})
      current.visited = true
      current_stack[current.data] = true
      current.children.each do |child|
-       return true if current_stack[child.data]
-       return cycle?(child, current_stack) if !child.visited
+      raise NotInvertibleError if current_stack[child.data]
+      check_cycle(child, current_stack)
      end
      return false
    end
+end
+
+class NotInvertibleError < StandardError
 end
