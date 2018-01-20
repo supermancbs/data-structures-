@@ -55,4 +55,14 @@ class Node
       end
       return false
    end
+
+   def cycle?(current = self, current_stack = {})
+     current.visited = true
+     current_stack[current.data] = true
+     current.children.each do |child|
+       return true if current_stack[child.data]
+       return cycle?(child, current_stack) if !child.visited
+     end
+     return false
+   end
 end
