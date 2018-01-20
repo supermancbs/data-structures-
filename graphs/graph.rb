@@ -1,43 +1,58 @@
-require 'pry'
-class Node 
+
+class Node
   attr_accessor :data, :children, :visited
-  
+
   def initialize(data, children = [], visited = false)
-    @data     = data 
+    @data     = data
     @children = children
     @visited  = visited
-  end   
-  
+  end
+
   def add_edge(node)
     children << node
-  end 
-  
+  end
+
   def bfs(target)
     queue = [self]
-    
-    self.visited = true 
-    while !queue.empty?    
-      current = queue.shift   
+
+    self.visited = true
+    while !queue.empty?
+      current = queue.shift
       current.children.each do |child|
         unless child.visited
           return true if child.data == target
-          child.visited = true 
-          queue << child 
-        end 
-       end 
-     end   
-     return false 
-   end 
-   
-   def dfs(target, current = self)
+          child.visited = true
+          queue << child
+        end
+       end
+     end
+     return false
+   end
+
+   def dfs_recursion(target, current = self)
      return true if current.data == target
-     current.visited = true 
+     current.visited = true
      current.children.each do |child|
        if !child.visited
-         return dfs(target, child)
-       end  
-     end 
+         return dfs_recursion(target, child)
+       end
+     end
      return false
-   end 
-end 
+   end
 
+   def dfs_stack(target)
+     stack = [self]
+     self.visited = true
+     while !stack.empty?
+       current = stack.pop
+       current.children.each do |child|
+         unless child.visited
+           return true if child.data == target
+           child.visited = true
+           stack.unshift(child)
+         end
+        end
+      end
+      return false
+   end
+end
