@@ -110,6 +110,8 @@ describe Node do
       node1.add_edge(node3)
       node2.add_edge(node5)
       node4.add_edge(node2)
+      node1.add_edge(node4)
+
       expect(node1.cycle?).to be false
     end
 

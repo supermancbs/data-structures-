@@ -57,22 +57,24 @@ class Node
    end
 
    def cycle?
-     begin
-       check_cycle
-       rescue NotInvertibleError
-         return true
-       end
+     Node.all.each |node|
+       begin
+         node.check_cycle
+         rescue NotInvertibleError
+           return true
+         end
+      end
       return false
    end
 
+   private
    def check_cycle(current = self, current_stack = {})
-     current.visited = true
      current_stack[current.data] = true
      current.children.each do |child|
       raise NotInvertibleError if current_stack[child.data]
       check_cycle(child, current_stack)
      end
-     return false
+     current_stack[current.data] = nil
    end
 end
 
