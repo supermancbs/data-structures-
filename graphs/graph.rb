@@ -1,11 +1,11 @@
-require 'pry'
 class Node
-  attr_accessor :data, :children, :visited
+  attr_accessor :data, :children, :visited, :visted_state
 
-  def initialize(data, children = [], visited = false)
+  def initialize(data, children = [])
     @data     = data
     @children = children
-    @visited  = visited
+    @visited  = false
+    @visted_state = "unvisted"
   end
 
   def add_edge(node)
@@ -57,25 +57,27 @@ class Node
    end
 
    def cycle?
-     Node.all.each |node|
        begin
-         node.check_cycle
+         self.check_cycle
          rescue NotInvertibleError
            return true
-         end
-      end
-      return false
+        end
+      false
    end
 
-   private
-   def check_cycle(current = self, current_stack = {})
-     current_stack[current.data] = true
+
+   def check_cycle(current = self)
      current.children.each do |child|
-      raise NotInvertibleError if current_stack[child.data]
-      check_cycle(child, current_stack)
-     end
-     current_stack[current.data] = nil
+      if child.visted_state == 'visiting'
+        raise NotInvertibleError
+      elsif child.visted_state == 'unvisted'
+        child.visted_state = 'visiting'
+        check_cycle(child)
+      end
+    end
+     current.visted_state = 'visited'
    end
+
 end
 
 class NotInvertibleError < StandardError

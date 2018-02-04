@@ -7,10 +7,10 @@ class Node
     @right = right 
   end 
   
-  def self.create_tree_from_array(arr, start, end)
-    return 
-    mid = (start - end)
-    root.left = create_tree_from_array(arr, mid)
-    root.right 
+  def self.create_tree_from_array(arr, start, end_point)
+    return if start > end_point
+    mid = (start - end_point)
+    root.left = create_tree_from_array(arr, start, end_point+1)
+    root.right = create_tree_from_array(arr, start-1, end_point)
   end 
 end 
