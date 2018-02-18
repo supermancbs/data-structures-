@@ -9,7 +9,6 @@ def coin_change(money, coins, index = 0)
     return coin_change(money - coins[index], coins, index) + coin_change(money, coins, index + 1)
 end
 
-@memo = {}
 def coin_change_memo(money, coins, index = 0, memo = {})
     if memo["#{money}:#{index}"]
       return  memo["#{money}:#{index}"]
