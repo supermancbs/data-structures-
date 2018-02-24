@@ -5,7 +5,7 @@ require_relative '../fill_color'
 
 describe "fill_color" do
   it "fills in a color correctly when given the inputs" do
-    input = [[1, 1, 1, 1, 1, 1, 1, 1],
+    input = [ [1, 1, 1, 1, 1, 1, 1, 1],
               [1, 1, 1, 1, 1, 1, 0, 0],
               [1, 0, 0, 1, 1, 0, 1, 1],
               [1, 2, 2, 2, 2, 0, 1, 0],
@@ -23,10 +23,36 @@ describe "fill_color" do
               [1, 1, 1, 3, 3, 3, 3, 0],
               [1, 1, 1, 1, 1, 3, 1, 1],
               [1, 1, 1, 1, 1, 3, 3, 1],
-              ];
+              ]
     x = 4
     y = 4
     new_color = 3
+
+    expect(fill_color(input, x, y, new_color)).to eql(output)
+  end
+
+  it "fills in a color correctly when given of all same color" do
+    input = [ [1, 1, 1, 1, 1, 1, 1, 1],
+              [1, 1, 1, 1, 1, 1, 1, 1],
+              [1, 1, 1, 1, 1, 1, 1, 1],
+              [1, 1, 1, 1, 1, 1, 1, 1],
+              [1, 1, 1, 1, 1, 1, 1, 1],
+              [1, 1, 1, 1, 1, 1, 1, 1],
+              [1, 1, 1, 1, 1, 1, 1, 1],
+              [1, 1, 1, 1, 1, 1, 1, 1],
+              ]
+    output = [[2, 2, 2, 2, 2, 2, 2, 2],
+              [2, 2, 2, 2, 2, 2, 2, 2],
+              [2, 2, 2, 2, 2, 2, 2, 2],
+              [2, 2, 2, 2, 2, 2, 2, 2],
+              [2, 2, 2, 2, 2, 2, 2, 2],
+              [2, 2, 2, 2, 2, 2, 2, 2],
+              [2, 2, 2, 2, 2, 2, 2, 2],
+              [2, 2, 2, 2, 2, 2, 2, 2],
+              ]
+    x = 4
+    y = 4
+    new_color = 2
 
     expect(fill_color(input, x, y, new_color)).to eql(output)
   end
