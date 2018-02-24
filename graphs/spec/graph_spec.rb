@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative 'graph'
+require_relative '../graph'
 
 describe Node do
   describe "breadth first search" do
